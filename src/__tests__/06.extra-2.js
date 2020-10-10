@@ -1,8 +1,8 @@
 import React from 'react'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import App from '../final/06.extra-2'
-// import App from '../exercise/06'
+// import App from '../final/06.extra-2'
+import App from '../exercise/06'
 
 beforeAll(() => {
   jest.spyOn(global, 'alert').mockImplementation(() => {})
@@ -20,12 +20,12 @@ test('calls the onSubmitUsername handler when the submit is fired', () => {
   let value = 'A'
   userEvent.type(input, value)
   expect(submit).toBeDisabled() // upper-case
-  expect(screen.getByRole('alert')).toHaveTextContent(/lower case/i)
 
   userEvent.clear(input)
   value = 'a'
   userEvent.type(input, value)
   userEvent.click(submit)
+  expect(screen.getByRole('alert')).toHaveTextContent(/lower case/i)
 
   expect(global.alert).toHaveBeenCalledWith(`You entered: ${input.value}`)
   expect(global.alert).toHaveBeenCalledTimes(1)
